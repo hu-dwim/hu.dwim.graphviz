@@ -102,7 +102,7 @@
   (let ((edge-info (foreign-slot-pointer edge 'agedge_t 'u)))
     (foreign-slot-value edge-info 'agedgeinfo_t 'edge_type)))
 
-;;; Here is the racionale for this:
+;;; Here is the racionale for this (tough i have no clue what it is) :
 ;;; #define ED_edge_type(e) (e)->u.edge_type
 ;;; #define ED_to_orig(e) (e)->u.to_orig
 ;;; while (ED_edge_type(e) != NORMAL)

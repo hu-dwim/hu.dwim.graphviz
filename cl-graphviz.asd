@@ -20,4 +20,4 @@
                        (:file "swig-output-overrides" :depends-on ("swig-output-processed"))
                        (:static-file "generate.sh")
                        (:static-file "swig.i"))))))
-  :depends-on (:cffi :iterate))
+  :depends-on (:cffi :iterate :metabang-bind))
