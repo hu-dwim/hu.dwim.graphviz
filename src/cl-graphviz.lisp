@@ -114,7 +114,7 @@
 
 (defun point (point)
   (list (foreign-slot-value point 'point 'x)
-          (foreign-slot-value point 'point 'y)))
+        (foreign-slot-value point 'point 'y)))
 
 (defun box-lower-left (box)
   (point box))
@@ -137,12 +137,15 @@
     (error "At least one visitor is needed"))
   (with-gvContext context
     (let ((graph nil)
-          (layout-done nil))
+          (layout-result-code nil))
       (unwind-protect
            (progn 
              (setf graph (agmemread graph-description))
-             (gvLayout context graph algorithm)
-             (setf layout-done t)
+             (when (null-pointer-p graph)
+               (error "Error from agmemread(), probably invalid graph description"))
+             (setf layout-result-code (gvLayout context graph algorithm))
+             (when (not (eql layout-result-code 0))
+               (error "gvLayout returned with ~A" layout-result-code))
              
              (when graph-visitor
                (funcall graph-visitor graph))
@@ -158,7 +161,7 @@
                                 then (agnxtedge graph edge node))
                            (until (null-pointer-p edge))
                            (funcall edge-visitor (edge-normalize edge))))))
-      (when layout-done (gvFreeLayout context graph))
+      (when layout-result-code (gvFreeLayout context graph))
       (when graph (agclose graph))))))
 
 
