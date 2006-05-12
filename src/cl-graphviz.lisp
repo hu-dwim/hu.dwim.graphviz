@@ -112,6 +112,21 @@
         (current edge (foreign-slot-value edge-info 'agedgeinfo_t 'to_orig)))
        ((eql (edge-type edge) 0) edge)))
 
+(defun edge-label (edge)
+  (let ((edge-info (foreign-slot-pointer edge 'agedge_t 'u)))
+    (foreign-slot-pointer edge-info 'agedgeinfo_t 'label)))
+
+(defun head-label (edge)
+  (let ((edge-info (foreign-slot-pointer edge 'agedge_t 'u)))
+    (foreign-slot-pointer edge-info 'agedgeinfo_t 'head_label)))
+
+(defun tail-label (edge)
+  (let ((edge-info (foreign-slot-pointer edge 'agedge_t 'u)))
+    (foreign-slot-pointer edge-info 'agedgeinfo_t 'tail_label)))
+
+(defun label-coordinate (label)
+  (foreign-slot-value label 'textlabel_t 'xcoord))
+
 (defun point (point)
   (list (foreign-slot-value point 'point 'x)
         (foreign-slot-value point 'point 'y)))

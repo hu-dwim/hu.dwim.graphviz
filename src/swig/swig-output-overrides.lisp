@@ -4,6 +4,34 @@
 ;;; here are some hand made overrides for the swig
 ;;; generated file
 
+(defcstruct port
+;	(p :pointer)
+	(xcoord :int)
+	(ycoord :int)
+	(theta :double)
+	(bp :pointer)
+	(defined :boolean)
+	(constrained :boolean)
+	(clip :boolean)
+	(order :unsigned-char)
+	(side :unsigned-char))
+
+(defcstruct textlabel_t
+	(text :string)
+	(fontname :string)
+	(fontcolor :string)
+	(fontsize :double)
+;	(dimen :pointer)
+        (width :float)
+        (height :float)
+;	(p :pointer)
+        (xcoord :int)
+        (ycoord :int)
+	(d :pointer)
+	(set :pointer)
+	(html :pointer)
+	(u :pointer))
+
 (defcstruct Agnode_t
 	;(tag :int)
 	;(pad :int :offset 4)
@@ -112,6 +140,31 @@
 	(priority :int)
 	(pad :pointer))
 
+(defcstruct Agedgeinfo_t
+	(spl :pointer)
+	(tail_port port)
+	(head_port port)
+	(label :pointer)
+	(head_label :pointer)
+	(tail_label :pointer)
+	(edge_type :char)
+	(adjacent :char)
+	(label_ontop :char)
+	(gui_state :unsigned-char)
+	(to_orig :pointer)
+	(alg :pointer)
+	(factor :double)
+	(dist :double)
+	(path :pointer)
+	(showboxes :pointer)
+	(conc_opp_flag :pointer)
+	(xpenalty :short)
+	(weight :int)
+	(cutvalue :int)
+	(tree_index :int)
+	(count :short)
+	(minlen :unsigned-short)
+	(to_virt :pointer))
 
 (defcstruct Agraphinfo_t
 	(drawing :pointer)
