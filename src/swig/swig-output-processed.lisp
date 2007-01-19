@@ -75,9 +75,9 @@
 
 (defconstant _GRAPH_H 1)
 
-(defconstant TAIL_ID "tailport")
+(defparameter TAIL_ID "tailport")
 
-(defconstant HEAD_ID "headport")
+(defparameter HEAD_ID "headport")
 
 (defconstant AGFLAG_DIRECTED 1)
 
