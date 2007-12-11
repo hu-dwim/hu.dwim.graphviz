@@ -17,7 +17,7 @@
 
 (in-package :cl-graphviz)
 
-(defvar *graphviz-foreign-library-directories* (list "/usr/lib/graphviz/"))
+(defvar *graphviz-foreign-library-directories* (list "/usr/lib/graphviz/" "/usr/lib/"))
 
 (define-foreign-library libgvc
   (:unix (:or "libgvc.so" "libgvc32.so"))
