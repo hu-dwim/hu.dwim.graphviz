@@ -1,5 +1,5 @@
 (cl:defpackage :cl-graphviz
-  (:use :common-lisp :cffi :iterate :bind)
+  (:use :common-lisp :cffi :bind)
   (:nicknames :graphviz)
   (:documentation "CL-GraphViz is a CFFI binding for GraphViz.")
   (:export
