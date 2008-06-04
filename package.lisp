@@ -20,7 +20,7 @@
 (defvar *graphviz-foreign-library-directories* (list "/usr/lib/graphviz/" "/usr/lib/"))
 
 (define-foreign-library libgvc
-  (:unix (:or "libgvc.so" "libgvc32.so"))
+  (:unix (:or "libgvc.so.4" "libgvc32.so.4"))
   (:darwin "libgvc.so")
   (:windows ("libgvc.dll" "msvcrt.dll"))
   (t "libgvc"))
