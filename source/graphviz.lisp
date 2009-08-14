@@ -1,12 +1,18 @@
-(in-package :cl-graphviz)
+;;; -*- mode: Lisp; Syntax: Common-Lisp; -*-
+;;;
+;;; Copyright (c) 2009 by the authors.
+;;;
+;;; See LICENCE for details.
+
+(in-package :hu.dwim.graphviz)
 
 (eval-when (:compile-toplevel :execute)
 
-  ;;; enable a simple reader macro to read $foo in the :graphviz-cffi-bindings package
+  ;;; enable a simple reader macro to read $foo in the :hu.dwim.graphviz.cffi package
   
   (defun symbol-reader (stream char)
     (declare (ignore char))
-    (let ((body (let ((*package* #.(find-package :graphviz-cffi-bindings)))
+    (let ((body (let ((*package* #.(find-package :hu.dwim.graphviz.cffi)))
                   (read stream t nil t))))
       `(quote ,body)))
 
@@ -17,22 +23,21 @@
   (enable-symbol-reader)
 
   #+#.(cl:when (cl:find-package "SWANK") '(:and))
-  (unless (assoc "CL-GRAPHVIZ" swank:*readtable-alist* :test #'string=)
+  (unless (assoc :hu.dwim.graphviz swank:*readtable-alist* :test #'string=)
     (flet ((doit (&rest packages)
              (dolist (package packages)
                (push (cons package *readtable*) swank:*readtable-alist*))))
-      (doit "CL-GRAPHVIZ"))))
+      (doit :hu.dwim.graphviz))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;
 ;;; public stuff to use comes here
-;;;
 
 (defmacro with-gv-context (var-name &body forms)
-  `(let ((,var-name (graphviz-cffi-bindings:gv-context)))
+  `(let ((,var-name (hu.dwim.graphviz.cffi:gv-context)))
     (unwind-protect
          (progn
            ,@forms)
-      (graphviz-cffi-bindings:gv-free-context ,var-name))))
+      (hu.dwim.graphviz.cffi:gv-free-context ,var-name))))
 
 (defun to-point (point)
   (list (foreign-slot-value point $point $x)
@@ -161,33 +166,33 @@
       (unwind-protect
            (progn 
              (setf graph (with-foreign-string (str graph-description)
-                           (graphviz-cffi-bindings:agmemread str)))
+                           (hu.dwim.graphviz.cffi:agmemread str)))
              (when (null-pointer-p graph)
                (error "Error from agmemread(), probably invalid graph description"))
              (setf layout-result-code (with-foreign-string (algorithm algorithm)
-                                        (graphviz-cffi-bindings:gv-layout context graph algorithm)))
+                                        (hu.dwim.graphviz.cffi:gv-layout context graph algorithm)))
              (when (not (eql layout-result-code 0))
                (error "gvLayout returned with ~A" layout-result-code))
              
              (when graph-visitor
                (funcall graph-visitor graph))
 
-             (loop for node = (graphviz-cffi-bindings:agfstnode graph)
-                            :then (graphviz-cffi-bindings:agnxtnode graph node)
+             (loop for node = (hu.dwim.graphviz.cffi:agfstnode graph)
+                            :then (hu.dwim.graphviz.cffi:agnxtnode graph node)
                    until (null-pointer-p node)
                    do (progn
                         (when node-visitor
                           (funcall node-visitor node))
 
                         (when edge-visitor
-                          (loop for edge = (graphviz-cffi-bindings:agfstedge graph node)
-                                         :then (graphviz-cffi-bindings:agnxtedge graph edge node)
+                          (loop for edge = (hu.dwim.graphviz.cffi:agfstedge graph node)
+                                         :then (hu.dwim.graphviz.cffi:agnxtedge graph edge node)
                                 until (null-pointer-p edge)
                                 do (funcall edge-visitor edge))))))
         (when layout-result-code
-          (graphviz-cffi-bindings:gv-free-layout context graph))
+          (hu.dwim.graphviz.cffi:gv-free-layout context graph))
         (when graph
-          (graphviz-cffi-bindings:agclose graph))))))
+          (hu.dwim.graphviz.cffi:agclose graph))))))
 
 
 
