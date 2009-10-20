@@ -18,4 +18,5 @@
   :depends-on (:hu.dwim.graphviz.test
                :hu.dwim.wui)
   :components ((:module "documentation"
-                :components ((:file "package")))))
+                :components ((:file "graphviz" :depends-on ("package"))
+                             (:file "package")))))
