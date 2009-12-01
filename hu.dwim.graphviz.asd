@@ -12,8 +12,7 @@
   :class hu.dwim.system
   :author ("Attila Lendvai <attila.lendvai@gmail.com>"
            "Levente Mészáros <levente.meszaros@gmail.com>")
-  :licence "BSD / Public domain"
-  :description "Graphviz layouting using CFFI bindings"
+  :description "Graphviz layouting using CFFI bindings."
   :depends-on (:cffi :metabang-bind)
   :components ((:module "source"
                 :components ((:file "package")

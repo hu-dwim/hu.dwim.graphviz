@@ -10,13 +10,8 @@
 
 (defsystem :hu.dwim.graphviz.test
   :class hu.dwim.test-system
-  :author ("Attila Lendvai <attila.lendvai@gmail.com>"
-           "Levente Mészáros <levente.meszaros@gmail.com>"
-           "Tamás Borbély <tomi.borbely@gmail.com>")
-  :licence "BSD / Public domain"
-  :description "Test suite for hu.dwim.graphviz"
   :depends-on (:hu.dwim.graphviz
-               :hu.dwim.util.test)
+               :hu.dwim.stefil+hu.dwim.def+swank)
   :components ((:module "test"
                 :components ((:file "package")
                              (:file "suite" :depends-on ("package"))))))
