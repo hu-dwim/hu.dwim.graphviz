@@ -6,7 +6,7 @@
 
 (in-package :hu.dwim.graphviz.documentation)
 
-(def project :hu.dwim.graphviz :path (system-pathname :hu.dwim.graphviz))
+(def project :hu.dwim.graphviz)
 
 (def book user-guide (:title "User guide")
   (chapter (:title "Introduction")
