@@ -33,5 +33,6 @@
   (:windows ("libgvc.dll" "msvcrt.dll"))
   (t "libgvc"))
 
+;; TODO make this lazy...
 (let ((*foreign-library-directories* *graphviz-foreign-library-directories*))
   (load-foreign-library 'libgvc))

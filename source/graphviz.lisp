@@ -9,7 +9,7 @@
 (eval-when (:compile-toplevel :execute)
 
   ;;; enable a simple reader macro to read $foo in the :hu.dwim.graphviz.cffi package
-  
+
   (defun symbol-reader (stream char)
     (declare (ignore char))
     (let ((body (let ((*package* #.(find-package :hu.dwim.graphviz.cffi)))
@@ -164,7 +164,7 @@
     (let ((graph nil)
           (layout-result-code nil))
       (unwind-protect
-           (progn 
+           (progn
              (setf graph (with-foreign-string (str graph-description)
                            (hu.dwim.graphviz.cffi:agmemread str)))
              (when (null-pointer-p graph)
@@ -173,7 +173,6 @@
                                         (hu.dwim.graphviz.cffi:gv-layout context graph algorithm)))
              (when (not (eql layout-result-code 0))
                (error "gvLayout returned with ~A" layout-result-code))
-             
              (when graph-visitor
                (funcall graph-visitor graph))
 
@@ -193,6 +192,3 @@
           (hu.dwim.graphviz.cffi:gv-free-layout context graph))
         (when graph
           (hu.dwim.graphviz.cffi:agclose graph))))))
-
-
-
