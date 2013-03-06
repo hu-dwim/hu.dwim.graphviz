@@ -40,8 +40,9 @@
       (hu.dwim.graphviz.cffi:gv-free-context ,var-name))))
 
 (defun to-point (point)
-  (list (foreign-slot-value point $point $x)
-        (foreign-slot-value point $point $y)))
+  ;; TODO finish dealing with the rest of the warnings...
+  (list (foreign-slot-value point '(:struct hu.dwim.graphviz.cffi:point) $x)
+        (foreign-slot-value point '(:struct hu.dwim.graphviz.cffi:point) $y)))
 
 (defun node-info (node)
   (foreign-slot-pointer node $node-t $u))
