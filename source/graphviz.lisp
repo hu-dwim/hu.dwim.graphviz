@@ -127,11 +127,11 @@
 
 (defun head-label (edge)
   (let ((edge-info (foreign-slot-pointer edge $agedge-t $u)))
-    (foreign-slot-pointer edge-info $agedgeinfo-t $head_label)))
+    (foreign-slot-pointer edge-info $agedgeinfo-t $head-label)))
 
 (defun tail-label (edge)
   (let ((edge-info (foreign-slot-pointer edge $agedge-t $u)))
-    (foreign-slot-pointer edge-info $agedgeinfo-t $tail_label)))
+    (foreign-slot-pointer edge-info $agedgeinfo-t $tail-label)))
 
 (defun label-coordinate (label)
   (to-point (foreign-slot-value label $textlabel-t $p)))
