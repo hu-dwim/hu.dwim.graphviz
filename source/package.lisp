@@ -11,9 +11,7 @@
         :common-lisp
         :metabang-bind)
 
-  (:export #:*graphviz-foreign-library-directories*
-
-           #:layout-dot-format
+  (:export #:layout-dot-format
            #:edge-between
            #:node-name
            #:node-coordinate
@@ -25,8 +23,6 @@
 
 (in-package :hu.dwim.graphviz)
 
-(defvar *graphviz-foreign-library-directories* (list "/usr/lib/graphviz/" "/usr/lib/"))
-
 (define-foreign-library libgvc
   (:unix (:or "libgvc.so" "libgvc.so.4" "libgvc32.so.4"))
   (:darwin "libgvc.so")
@@ -34,5 +30,4 @@
   (t "libgvc"))
 
 ;; TODO make this lazy...
-(let ((*foreign-library-directories* *graphviz-foreign-library-directories*))
-  (load-foreign-library 'libgvc))
+(load-foreign-library 'libgvc)
